@@ -1,0 +1,325 @@
+/* =========================================
+   1. GRUNDLEGENDE EINSTELLUNGEN
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: url('assets/Me.jpg') center/80% no-repeat fixed;
+    color: #e0e0e0;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(19, 36, 53, 0.88); /* CV-Dunkelblau erhöht für bessere Lesbarkeit */
+    backdrop-filter: blur(12px);
+    z-index: -1;
+}
+
+h2 {
+    color: #D8C3A5; /* Gold */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* =========================================
+   2. HEADER & FOOTER
+   ========================================= */
+header, footer {
+    background: rgba(19, 36, 53, 0.95);
+    padding: 30px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+header h1 {
+    font-size: 4vw;
+    color: #D8C3A5; /* CV-Gold */
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+header p {
+    color: #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+nav { margin-top: 25px; }
+
+nav a {
+    margin: 0 10px;
+    font-size: 1em;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #D8C3A5; /* Gold */
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+nav a:hover {
+    background-color: #D8C3A5; /* Gold */
+    color: #132435;
+}
+
+/* =========================================
+   3. HAUPTBEREICHE
+   ========================================= */
+section {
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.about-me {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.about-me img {
+    width: 100%;
+    max-width: 220px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(216, 195, 165, 0.3);
+}
+
+.about-me .about-text {
+    flex: 1;
+    color: #e0e0e0;
+    font-size: 1.1em;
+}
+
+.about-text p { margin-bottom: 15px; }
+
+/* =========================================
+   4. KARTEN-BASE-DESIGN & ANIMATIONEN
+   ========================================= */
+.card {
+    background: rgba(19, 36, 53, 0.65); /* Dunkelblau */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(216, 195, 165, 0.2); /* Gold-Rand */
+    padding: 30px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+
+    /* Hardwarebeschleunigter Fade-In Zustand */
+    opacity: 0;
+    transform: translateY(30px) translateZ(0);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+    will-change: transform, opacity;
+}
+
+/* Sichtbarkeitsklasse gesteuert durch JS-Schnittstelle */
+.card.visible {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+.card:hover {
+    transform: translateY(-8px) translateZ(0);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5);
+    border-color: rgba(216, 195, 165, 0.5);
+}
+
+.card i { font-size: 2em; margin-right: 15px; color: #D8C3A5; } /* Gold */
+.card .card-content { display: flex; align-items: center; margin-bottom: 20px; }
+.card h3 { font-size: 1.3em; color: #ffffff; }
+
+/* =========================================
+   5. SKILLS GRID
+   ========================================= */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.skills-grid .section-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #b0b0b0;
+}
+
+.skill-card { text-align: center; }
+.skill-card .card-content { justify-content: center; flex-direction: column; margin-bottom: 10px; }
+.skill-card i { font-size: 2.5em; margin-right: 0; display: block; margin-bottom: 12px; }
+.skill-card p { color: #b0b0b0; font-size: 0.95em; }
+
+/* =========================================
+   6. PROJECTS GRID (Klickfrei & Immer Sichtbar)
+   ========================================= */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.project-card {
+    height: 100%;
+}
+
+.project-description {
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.project-details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.project-details p {
+    color: #b0b0b0;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.project-details ul {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.project-details ul li {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    position: relative;
+    padding-left: 5px;
+}
+
+/* Spezielles visuelles Highlight für deine Dörfer-Gmbh Eigenentwicklung */
+.highlight-project {
+    grid-column: 1 / -1; /* Nimmt die volle Breite ein für maximale Aufmerksamkeit */
+    border: 1px solid rgba(216, 195, 165, 0.5);
+    background: linear-gradient(145deg, rgba(19, 36, 53, 0.8), rgba(25, 45, 66, 0.6));
+    box-shadow: 0 10px 30px rgba(216, 195, 165, 0.05);
+}
+
+.highlight-project:hover {
+    border-color: rgba(216, 195, 165, 0.9);
+    box-shadow: 0 20px 45px rgba(216, 195, 165, 0.15);
+}
+
+/* =========================================
+   7. PROJEKT IMAGES (Bildergalerien)
+   ========================================= */
+.project-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.project-images img {
+    width: 100%;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.project-images img:hover {
+    transform: scale(1.08);
+    border-color: #D8C3A5;
+    z-index: 2;
+}
+
+/* =========================================
+   8. BUTTONS & LINKS (Aktions-Aufrufe)
+   ========================================= */
+.project-link-btn {
+    display: inline-block;
+    text-align: center;
+    background-color: transparent;
+    color: #D8C3A5;
+    border: 2px solid #D8C3A5;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95em;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start;
+    margin-top: auto; /* Drückt den Button immer sauber nach unten */
+}
+
+.project-link-btn:hover {
+    background-color: #D8C3A5;
+    color: #132435;
+    transform: scale(1.03);
+}
+
+/* =========================================
+   9. KONTAKT & FOOTER
+   ========================================= */
+.contact-info { text-align: center; }
+
+.contact-info a {
+    color: #D8C3A5;
+    text-decoration: none;
+    font-size: 1.1em;
+    display: inline-block;
+    margin: 15px;
+    padding: 8px 16px;
+    border: 1px solid rgba(216, 195, 165, 0.2);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.contact-info a:hover {
+    background-color: rgba(216, 195, 165, 0.1);
+    border-color: #D8C3A5;
+    text-decoration: none;
+}
+
+/* =========================================
+   10. MULTI-PLATFORM RESPONSIVE DESIGN
+   ========================================= */
+@media (max-width: 900px) {
+    .project-grid { grid-template-columns: 1fr; }
+    .project-images { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .about-me { flex-direction: column; text-align: center; }
+    .about-me img { width: 60%; margin: 0 auto 10px; }
+    header h1 { font-size: 8vw; }
+    nav a { display: block; margin: 8px 0; }
+}
